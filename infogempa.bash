@@ -2,7 +2,7 @@
 # Dibuat oleh komunitas Open Source dan Keamanan Komputer
 # https://zerobyte.id/
 
-VERSI="1.3";
+VERSI="1.4";
 
 if [[ $1 == "--version" ]];then
 	echo "Versi $VERSI";
@@ -21,11 +21,13 @@ if [[ -z $(command -v column) ]];then
 	exit;
 fi
 
-echo "--,----------------------,-------,------,-----,---------,---------------------" > /tmp/INFOGEMPA.TEMP
+COLINE='--,----------------------,-------,------,-----,---------,----------------------------------';
+echo "$COLINE" > /tmp/INFOGEMPA.TEMP
 echo "No,Waktu,Lintang,Bujur,Skala,Kedalaman,Wilayah" >> /tmp/INFOGEMPA.TEMP
-echo "--,----------------------,-------,------,-----,---------,---------------------" >> /tmp/INFOGEMPA.TEMP
+echo "$COLINE" >> /tmp/INFOGEMPA.TEMP
 curl -s http://www.bmkg.go.id/gempabumi/gempabumi-terkini.bmkg | grep -A8 '<tr>' | sed -e "s/[[:space:]]\+/ /g" | sed 's/--//g' | sed ':a;N;$!ba;s/\n/ /g' | sed 's/<\/tr>/\n/g' | sed 's/   //g' | sed 's/^ //g' | sed 's/<\/td><td>/,/g' | sed 's/<tr><td>//g' | sed 's/<\/td>//g' | sed 's/<br>//g' | sed '/^\s*$/d' >> /tmp/INFOGEMPA.TEMP
-if [[ $(cat /tmp/INFOGEMPA.TEMP | wc -l) -le 3 ]];then
+echo "$COLINE" >> /tmp/INFOGEMPA.TEMP
+if [[ $(cat /tmp/INFOGEMPA.TEMP | wc -l) -le 4 ]];then
 	echo "error: tolong periksa koneksi internet anda.";
 	rm /tmp/INFOGEMPA.TEMP
 	exit;
