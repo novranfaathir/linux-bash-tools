@@ -7,8 +7,8 @@ Digunakan untuk melihat gempa terkini atau 60 kejadian gempa terakhir di Indones
 
 Instalasi:
 ```
-# git clone https://github.com/panophan/infogempa-linux.git
-# cd infogempa-linux/
-# chmod +x setup.bash
-# ./setup.bash
+git clone https://github.com/panophan/infogempa-linux.git
+cd infogempa-linux/
+chmod +x setup.bash
+./setup.bash
 ```
